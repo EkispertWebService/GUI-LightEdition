@@ -1,0 +1,221 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>Webサービスサンプル</title>
+<link class="css" rel="stylesheet" type="text/css" href="expCss/expGuiDateTime.css">
+<link class="css" rel="stylesheet" type="text/css" href="expCss/expGuiStation.css">
+<link class="css" rel="stylesheet" type="text/css" href="expCss/expGuiCondition.css">
+<link class="css" rel="stylesheet" type="text/css" href="sample.css">
+<script type="text/javascript" src="expGuiDateTime.js?key=5F6YFMvV7wS2CSFP" charset="UTF-8"></script>
+<script type="text/javascript" src="expGuiCondition.js?key=5F6YFMvV7wS2CSFP" charset="UTF-8"></script>
+<script type="text/javascript" src="expGuiStation.js?key=5F6YFMvV7wS2CSFP" charset="UTF-8"></script>
+<script type="text/javascript" src="expGuiCourseLight.js?key=5F6YFMvV7wS2CSFP" charset="UTF-8"></script>
+<script type="text/javascript" src="json2.js"></script>
+<script type="text/javascript">
+<!--
+
+var dateTimeApp;// 日付入力パーツ
+var stationApp1;// 駅名入力パーツ#1
+var stationApp2;// 駅名入力パーツ#2
+var stationApp3;// 駅名入力パーツ#3
+var conditonApp;// 探索条件パーツ
+var resultApp;// 経路探索パーツ
+
+/*
+ * パーツを初期化
+ */
+function init(){
+  // 日付入力パーツ初期化
+  dateTimeApp = new expGuiDateTime(document.getElementById("dateTime"));
+  dateTimeApp.dispDateTime(dateTimeApp.SEARCHTYPE_DIA);
+
+  // 駅名入力パーツ#1初期化
+  stationApp1 = new expGuiStation(document.getElementById("station1"));
+  stationApp1.setConfigure("maxStation",10);
+  stationApp1.dispStation();
+
+  // 駅名入力パーツ#2初期化
+  stationApp2 = new expGuiStation(document.getElementById("station2"));
+  stationApp2.setConfigure("maxStation",10);
+  stationApp2.dispStation();
+
+  // 駅名入力パーツ#3初期化
+  stationApp3 = new expGuiStation(document.getElementById("station3"));
+  stationApp3.setConfigure("maxStation",10);
+  stationApp3.dispStation();
+
+  // 探索条件パーツ初期化
+  conditonApp = new expGuiCondition(document.getElementById("condition"));
+  conditonApp.dispConditionLight();
+
+  // 経路探索パーツ初期化
+  resultApp = new expGuiCourseLight(document.getElementById("result"));
+}
+
+/*
+ * 探索前に入力チェックを行う
+ */
+function checkData(){
+  // メッセージの初期化
+  var errorMessage="";
+  if(!dateTimeApp.checkDate()){
+    // 日付入力パーツのチェック
+    errorMessage +="\n日付を正しく入力してください。";
+  }
+  if(stationApp1.getStation() == ""){
+    // 駅名入力パーツの空チェック
+    errorMessage +="\n出発地は必須です。";
+  }
+  if(stationApp2.getStation() == ""){
+    // 駅名入力パーツの空チェック
+    errorMessage +="\n目的地は必須です。";
+  }else{
+    if(stationApp1.getStation() == stationApp2.getStation()){
+      // 駅名同一チェック
+      errorMessage +="\n出発地と目的地が同一です。";
+    }
+  }
+  if(stationApp3.getStation() != ""){
+    if(stationApp1.getStation() == stationApp3.getStation()){
+      // 駅名同一チェック
+      errorMessage +="\n経由地が出発地と同一です。";
+    }else if(stationApp2.getStation() == stationApp3.getStation()){
+      // 駅名同一チェック
+      errorMessage +="\n経由地が目的地と同一です。";
+    }
+  }
+  if(errorMessage != ""){
+    alert("下記の項目を確認してください。"+errorMessage);
+    return false;
+  }else{
+    return true;
+  }
+}
+
+/*
+ * 探索ボタンの動作
+ */
+function searchRun(){
+  //入力チェック後に動作
+  if(checkData()){
+    // 候補を閉じる
+    stationApp1.closeStationList();
+    stationApp2.closeStationList();
+    stationApp3.closeStationList();
+    // 探索条件
+    var searchInterface = resultApp.createSearchInterface();
+    searchInterface.setFrom(stationApp1.getStation());
+    searchInterface.setTo(stationApp2.getStation());
+    if(stationApp3.getStation() != ""){
+      searchInterface.setVia(stationApp3.getStation());
+    }
+    searchInterface.setSearchType(dateTimeApp.getSearchType());
+    searchInterface.setDate(dateTimeApp.getDate());
+    searchInterface.setTime(dateTimeApp.getTime());
+    searchInterface.setPlane(conditonApp.getConditionLight(conditonApp.CONDITON_PLANE));
+    searchInterface.setShinkansen(conditonApp.getConditionLight(conditonApp.CONDITON_SHINKANSEN));
+    searchInterface.setLimitedExpress(conditonApp.getConditionLight(conditonApp.CONDITON_LIMITEDEXPRESS));
+    searchInterface.setBus(conditonApp.getConditionLight(conditonApp.CONDITON_LOCALBUS));
+    resultApp.search(searchInterface,result);
+  }
+}
+/*
+ * 探索実行時のコールバック関する
+ */
+function result(isSuccess){
+  if(!isSuccess){
+    alert("探索行えません");
+  }else{
+    document.getElementById("result").style.display = "block";
+  }
+}
+/*
+ * Rooteの結果を表示
+ */
+function openRoote(){
+  window.open(resultApp.getResourceURI(), 'Roote', 'width=1000, height=600, menubar=no, toolbar=no, scrollbars=yes');
+}
+// -->
+</script>
+</head>
+<body onLoad="Javascript:init();">
+
+<!-- 日付入力パーツ -->
+<table class="sample">
+  <tr>
+    <td class="sample_title">出発日</td>
+  </tr>
+  <tr>
+    <td>
+      <div id="dateTime"></div>
+    </td>
+  </tr>
+</table>
+
+<!-- 探索条件パーツ -->
+<table class="sample">
+  <tr>
+    <td class="sample_title">探索条件</td>
+  </tr>
+  <tr>
+    <td>
+      <div id="condition"></div>
+    </td>
+  </tr>
+</table>
+
+<!-- 駅名入力パーツ -->
+<table class="sample">
+  <tr>
+    <td class="sample_title">出発地</td>
+  </tr>
+  <tr>
+    <td>
+      <div id="station1" style="width:100%;"></div>
+    </td>
+  </tr>
+  <tr>
+    <td class="sample_title">目的地</td>
+  </tr>
+  <tr>
+    <td>
+      <div id="station2" style="width:100%;"></div>
+    </td>
+  </tr>
+  <tr>
+    <td class="sample_title">経由地</td>
+  </tr>
+  <tr>
+    <td>
+      <div id="station3" style="width:100%;"></div>
+    </td>
+  </tr>
+</table>
+
+<!-- 探索実行ボタン -->
+<div class="sample_btn_area">
+<input class="sample_btn" type="button" value="探索結果URLを生成" onClick="Javascript:searchRun();">
+</div>
+
+<!-- 経路探索パーツ -->
+<table class="sample">
+  <tr>
+    <td>
+      <div id="result" style="display: none;">
+        <a href="javascript:openRoote()">
+          Rooteの探索結果を表示する
+        </a>
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
+
