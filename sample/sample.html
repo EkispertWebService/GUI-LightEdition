@@ -19,14 +19,12 @@
 <script type="text/javascript" src="json2.js"></script>
 <script type="text/javascript">
 <!--
-
 var dateTimeApp;// 日付入力パーツ
 var stationApp1;// 駅名入力パーツ#1
 var stationApp2;// 駅名入力パーツ#2
 var stationApp3;// 駅名入力パーツ#3
 var conditonApp;// 探索条件パーツ
 var resultApp;// 経路探索パーツ
-
 /*
  * パーツを初期化
  */
@@ -34,30 +32,24 @@ function init(){
   // 日付入力パーツ初期化
   dateTimeApp = new expGuiDateTime(document.getElementById("dateTime"));
   dateTimeApp.dispDateTime(dateTimeApp.SEARCHTYPE_DIA);
-
   // 駅名入力パーツ#1初期化
   stationApp1 = new expGuiStation(document.getElementById("station1"));
   stationApp1.setConfigure("maxStation",10);
   stationApp1.dispStation();
-
   // 駅名入力パーツ#2初期化
   stationApp2 = new expGuiStation(document.getElementById("station2"));
   stationApp2.setConfigure("maxStation",10);
   stationApp2.dispStation();
-
   // 駅名入力パーツ#3初期化
   stationApp3 = new expGuiStation(document.getElementById("station3"));
   stationApp3.setConfigure("maxStation",10);
   stationApp3.dispStation();
-
   // 探索条件パーツ初期化
   conditonApp = new expGuiCondition(document.getElementById("condition"));
   conditonApp.dispConditionLight();
-
   // 経路探索パーツ初期化
   resultApp = new expGuiCourseLight(document.getElementById("result"));
 }
-
 /*
  * 探索前に入力チェックを行う
  */
@@ -97,7 +89,6 @@ function checkData(){
     return true;
   }
 }
-
 /*
  * 探索ボタンの動作
  */
@@ -136,10 +127,10 @@ function result(isSuccess){
   }
 }
 /*
- * Rooteの結果を表示
+ * 駅すぱあと for webの結果を表示
  */
-function openRoote(){
-  window.open(resultApp.getResourceURI(), 'Roote', 'width=1000, height=600, menubar=no, toolbar=no, scrollbars=yes');
+function openWeb(){
+  window.open(resultApp.getResourceURI(), '駅すぱあと for web', 'width=1000, height=600, menubar=no, toolbar=no, scrollbars=yes');
 }
 // -->
 </script>
@@ -208,8 +199,8 @@ function openRoote(){
   <tr>
     <td>
       <div id="result" style="display: none;">
-        <a href="javascript:openRoote()">
-          Rooteの探索結果を表示する
+        <a href="javascript:openWeb()">
+          駅すぱあと for webの探索結果を表示する
         </a>
       </div>
     </td>
@@ -218,4 +209,3 @@ function openRoote(){
 
 </body>
 </html>
-

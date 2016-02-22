@@ -2,9 +2,9 @@
  *  駅すぱあと Web サービス
  *  探索条件パーツ
  *  サンプルコード
- *  http://webui.ekispert.com/doc/
+ *  https://github.com/EkispertWebService/GUI-LightEdition
  *  
- *  Version:2013-09-26
+ *  Version:2016-02-22
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
