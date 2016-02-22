@@ -2,9 +2,9 @@
  *  駅すぱあと Web サービス
  *  駅名入力パーツ
  *  サンプルコード
- *  http://webui.ekispert.com/doc/
+ *  https://github.com/EkispertWebService/GUI-LightEdition
  *  
- *  Version:2013-09-27
+ *  Version:2016-02-22
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
