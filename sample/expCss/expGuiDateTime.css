@@ -7,12 +7,12 @@
     font-size: inherit;
     font-family: "メイリオ", Meiryo, Tahoma, Verdana, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     _font-family: "メイリオ", Meiryo,"ＭＳ Ｐゴシック", Tahoma, Verdana, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "MS PGothic", sans-serif;
+    text-align: left;
 }
 /* カレンダーのボタン */
 .expGuiDateTime .exp_cal_open {
     background: url(../expImages/icnTckCalender.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_cal_open:hover {
     background: url(../expImages/icnTckCalenderhover.png) no-repeat;
 }
@@ -42,7 +42,6 @@
 .expGuiDateTime .exp_calendar .exp_calFirstWeek,.expGuiDateTime .exp_calendar .exp_calSecWeek,.expGuiDateTime .exp_calendar .exp_calThirWeek,.expGuiDateTime .exp_calendar .exp_calFourWeek,.expGuiDateTime .exp_calendar .exp_calFifWeek,.expGuiDateTime .exp_calendar .exp_calSixWeek {
     border-left: 1px solid #98a2ab;
 }
-/*  */
 .expGuiDateTime .exp_calendar .exp_calSixWeek {
     border-bottom: 1px solid #98a2ab;
 } 
@@ -61,7 +60,6 @@
     background: -moz-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
     background: -webkit-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
 }
-/*  */
 .expGuiDateTime .exp_calendar .exp_days a:hover {
     background: -moz-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
     background: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
@@ -165,7 +163,6 @@
     height: 21px;
     background-color: #eff1f5;
 }
-/*  */
 .expGuiDateTime .exp_calendar table tr {
     padding: 0;
     background-color: #eff1f5;
@@ -263,7 +260,6 @@
     -moz-border-radius-bottomright: 6px;
     border-bottom-right-radius: 6px;
 }
-/*  */
 .expGuiDateTime .exp_searchType .exp_lastTrain input:checked + label {
     border-color: #007fa8 #0087b3 #1198c4;
     -webkit-border-top-right-radius: 6px;
@@ -273,7 +269,6 @@
     -moz-border-radius-bottomright: 6px;
     border-bottom-right-radius: 6px;
 }
-/*  */
 .expGuiDateTime .exp_searchType .exp_lastTrain label:hover {
     -webkit-border-top-right-radius: 6px;
     -moz-border-radius-topright: 6px;
@@ -290,14 +285,12 @@
     -moz-border-radius: 6px;
     border-radius: 6px;
 }
-/*  */
 .expGuiDateTime .exp_searchType .exp_plain input:checked + label {
     border-color: #007fa8 #0087b3 #1198c4;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
 }
-/*  */
 .expGuiDateTime .exp_searchType .exp_plain label:hover {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -330,14 +323,12 @@
 .expGuiDateTime .exp_searchType label:hover {
     color: #0082ad;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOff a:link,.expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOff a:visited {
     width: 76px;
     height: 31px;
     color: #384556;
     background: url(../expImages/offBtnType.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOff:hover,.expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOff a:hover {
     width: 76px;
     height: 31px;
@@ -350,21 +341,18 @@
     color: #FFFFFF;
     background: url(../expImages/onBtnType.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeButton {
     display: block;
     width: 60px;
     height: 40px;
     text-decoration: none;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOff a:link,.expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOff a:visited {
     width: 75px;
     height: 31px;
     color: #384556;
     background: url(../expImages/offBtnDep.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOff:hover,.expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOff a:hover {
     width: 75px;
     height: 31px;
@@ -377,19 +365,16 @@
     color: #FFFFFF;
     background: url(../expImages/onBtnDep.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypeDepartureOff,.expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypeArrivalOff,.expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOff,.expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOff,.expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff {
     float: left;
     margin-bottom: 0.8em;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOff a:link,.expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOff a:visited {
     width: 76px;
     height: 31px;
     color: #384556;
     background: url(../expImages/offBtnType.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOff:hover,.expGuiDateTime .exp_searchTypeList .exp_searchTypeFirstTrainOff a:hover {
     width: 76px;
     height: 31px;
@@ -402,14 +387,12 @@
     color: #FFFFFF;
     background: url(../expImages/onBtnType.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOff a:link,.expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOff a:visited {
     width: 75px;
     height: 31px;
     color: #384556;
     background: url(../expImages/offBtnLas.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOff:hover,.expGuiDateTime .exp_searchTypeList .exp_searchTypeLastTrainOff a:hover {
     width: 75px;
     height: 31px;
@@ -422,14 +405,12 @@
     color: #FFFFFF;
     background: url(../expImages/onBtnLas.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff a:link,.expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff a:visited {
     width: 73px;
     height: 31px;
     color: #384556;
     background: url(../expImages/offBtnPlain.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff:hover,.expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff a:hover {
     width: 73px;
     height: 31px;
@@ -442,11 +423,9 @@
     color: #FFFFFF;
     background: url(../expImages/onBtnPlain.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOn,.expGuiDateTime .exp_searchTypeList .exp_searchTypePlainOff {
     margin-left: 0.5em;
 }
-/*  */
 .expGuiDateTime .exp_searchTypeList .exp_text {
     display: block;
     padding-top: 4px;
@@ -461,7 +440,6 @@
 .expGuiDateTime .exp_setNow {
     background: url(../expImages/btnCtrTimeNow.png) no-repeat;
 }
-/*  */
 .expGuiDateTime .exp_setNow:hover {
     background: url(../expImages/btnCtrTimeNowhover.png) no-repeat;
 }
@@ -475,7 +453,6 @@
     border-collapse: collapse;
     text-align: center;
 }
-/*  */
 .expGuiDateTimePC {
     font-size: 0.8em;
 }
@@ -487,7 +464,6 @@
     width: 31px;
     height: 30px;
 }
-/*  */
 .expGuiDateTimePc .exp_calendar .exp_prev .exp_header_prev,.expGuiDateTimePc .exp_calendar .exp_next .exp_header_next {
     display: block;
     margin-top: -11px;
@@ -523,9 +499,10 @@
     margin-right: 0;
     width: 32px;
     height: 32px;
+    border: 1px solid #616d7a;
+    border-radius: 6px;
     background: url(../expImages/TabicnTckCalender.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
 .expGuiDateTimePhone .exp_cal_open:hover {
     background: url(../expImages/TabicnTckCalender.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
@@ -553,7 +530,6 @@
 .expGuiDateTimePhone .exp_calendar .exp_calFirstWeek,.expGuiDateTimePhone .exp_calendar .exp_calSecWeek,.expGuiDateTimePhone .exp_calendar .exp_calThirWeek,.expGuiDateTimePhone .exp_calendar .exp_calFourWeek,.expGuiDateTimePhone .exp_calendar .exp_calFifWeek,.expGuiDateTimePhone .exp_calendar .exp_calSixWeek {
     border-left: 1px solid #98a2ab;
 }
-/*  */
 .expGuiDateTimePhone .exp_calendar .exp_calSixWeek {
     border-bottom: 1px solid #98a2ab;
 } 
@@ -572,13 +548,11 @@
     background: -moz-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
     background: -webkit-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
 }
-/*  */
 .expGuiDateTimePhone .exp_calendar .exp_days a:hover {
     background: -moz-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
     background: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
     color: #0082ad;
 }
-/*  */
 .expGuiDateTimePhone .exp_calendar .exp_header_prev,.expGuiDateTimePhone .exp_calendar .exp_header_next {
     display: block;
     width: 100%;
@@ -684,17 +658,18 @@
     height: 30px;
     background-color: #eff1f5;
 }
-/*  */
 .expGuiDateTimePhone .exp_calendar table tr {
     padding: 0;
     background-color: #eff1f5;
 }
-/*  */
+.expGuiDateTimePhone .exp_dateGroup {
+    padding-right: 40px;
+}
 .expGuiDateTimePhone .exp_date {
     float: left;
     margin-right: -50px;
     margin-bottom: 0.7em;
-    width: 86%;
+    width: 100%;
     height: 32px;
 }
 /* 端末種別 */
@@ -713,18 +688,19 @@
     float: right;
     width: 31px;
     height: 30px;
+    border: 1px solid #616d7a;
+    border-radius: 6px;
     background: url(../expImages/TabbtnCtrTimeNow.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
 .expGuiDateTimePhone .exp_setNow:hover {
     background: url(../expImages/TabbtnCtrTimeNow.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
+.expGuiDateTimePhone .exp_timeGroup {
+    padding-right: 40px;
+}
 .expGuiDateTimePhone .exp_time {
     float: left;
-    margin-right: 2%;
-    width: 42%;
-    height: 2em;
+    width: 50%;
     height: 32px;
 }
 /* カレンダーのテーブル */
@@ -734,7 +710,6 @@
     background: #333;
     text-align: center;
 }
-/*  */
 .expGuiDateTimePhone,.expGuiDateTimeTablet {
     font-size: small;
 }
@@ -745,9 +720,10 @@
     margin-right: 3%;
     width: 32px;
     height: 32px;
+    border: 1px solid #616d7a;
+    border-radius: 6px;
     background: url(../expImages/TabicnTckCalender.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
 .expGuiDateTimeTablet .exp_cal_open:hover {
     background: url(../expImages/TabicnTckCalender.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
@@ -774,7 +750,6 @@
 .expGuiDateTimeTablet .exp_calendar .exp_calFirstWeek,.expGuiDateTimeTablet .exp_calendar .exp_calSecWeek,.expGuiDateTimeTablet .exp_calendar .exp_calThirWeek,.expGuiDateTimeTablet .exp_calendar .exp_calFourWeek,.expGuiDateTimeTablet .exp_calendar .exp_calFifWeek,.expGuiDateTimeTablet .exp_calendar .exp_calSixWeek {
     border-left: 1px solid #98a2ab;
 }
-/*  */
 .expGuiDateTimeTablet .exp_calendar .exp_calSixWeek {
     border-bottom: 1px solid #98a2ab;
 } 
@@ -793,13 +768,11 @@
     background: -moz-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
     background: -webkit-linear-gradient(bottom, #ffffff, #dbdee3 0%, #ebeef2 67%, #f9fafb);
 }
-/*  */
 .expGuiDateTimeTablet .exp_calendar .exp_days a:hover {
     background: -moz-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
     background: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2 0%, #f3f3f3 67%, #ffffff);
     color: #0082ad;
 }
-/*  */
 .expGuiDateTimeTablet .exp_calendar .exp_header_prev,.expGuiDateTimeTablet .exp_calendar .exp_header_next {
     display: block;
     width: 100%;
@@ -905,12 +878,10 @@
     height: 30px;
     background-color: #eff1f5;
 }
-/*  */
 .expGuiDateTimeTablet .exp_calendar table tr {
     padding: 0;
     background-color: #eff1f5;
 }
-/*  */
 .expGuiDateTimeTablet .exp_date {
     float: left;
     margin-top: 0.1em;
@@ -930,13 +901,13 @@
     margin-right: 0;
     width: 32px;
     height: 32px;
+    border: 1px solid #616d7a;
+    border-radius: 6px;
     background: url(../expImages/TabbtnCtrTimeNow.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
 .expGuiDateTimeTablet .exp_setNow:hover {
     background: url(../expImages/TabbtnCtrTimeNow.png) no-repeat center, -webkit-gradient(linear, left bottom, left top,  from(#ffffff),color-stop(0.05, #dbdee3),color-stop(0.67, #ebeef2), to(#f9fafb));
 }
-/*  */
 .expGuiDateTimeTablet .exp_time {
     float: left;
     margin-top: 0.1em;

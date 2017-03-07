@@ -2,24 +2,21 @@
  *  駅すぱあと Web サービス
  *  駅情報パーツ
  *  サンプルコード
- *  https://github.com/EkispertWebService/GUI-LightEdition
+ *  https://github.com/EkispertWebService/GUI
  *  
- *  Version:2016-02-22
+ *  Version:2016-06-20
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
 
 var expGuiStationInfo = function (pObject, config) {
-    /*
-    * Webサービスの設定
-    */
-    var apiURL = "http://api.ekispert.com/";
+    // Webサービスの設定
+    var apiURL = "http://api.ekispert.jp/";
 
-    /*
-    * GETパラメータからキーの設定
-    */
+    // GETパラメータからキーの設定
     var key;
     var scripts = document.getElementsByTagName("script");
+    var imagePath;
     for (var i = 0; i < scripts.length; i++) {
         var s = scripts[i];
         imagePath = s.src.substring(0, s.src.indexOf("expGuiStationInfo\.js"));
@@ -36,9 +33,7 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
-    * 変数郡
-    */
+    // 変数郡
     var stationList;
     var railInformationList;
     var nearrailInformationList;
@@ -53,7 +48,7 @@ var expGuiStationInfo = function (pObject, config) {
     var prefectureCode;
     var callbackFunction; // コールバック関数の設定
 
-    /*
+    /**
     * 駅の検索
     */
     function searchStation(lati, longi, gcs, param1, param2) {
@@ -62,7 +57,7 @@ var expGuiStationInfo = function (pObject, config) {
             url += "&type=" + type;
         }
         if (typeof corporationBind != 'undefined') {
-            url += "&corporationBind=" + corporationBind;
+            url += "&corporationBind=" + encodeURIComponent(corporationBind);
         }
         // 緯度経度
         var geoPoint = lati + "," + longi;
@@ -89,7 +84,7 @@ var expGuiStationInfo = function (pObject, config) {
         request(url);
     }
 
-    /*
+    /**
     * 駅の検索
     */
     function getStation(station, callback) {
@@ -101,7 +96,7 @@ var expGuiStationInfo = function (pObject, config) {
                 url += "&type=" + type;
             }
             if (typeof corporationBind != 'undefined') {
-                url += "&corporationBind=" + corporationBind;
+                url += "&corporationBind=" + encodeURIComponent(corporationBind);
             }
             if (typeof prefectureCode != 'undefined') {
                 url += "&prefectureCode=" + prefectureCode;
@@ -117,7 +112,7 @@ var expGuiStationInfo = function (pObject, config) {
         request(url);
     }
 
-    /*
+    /**
     * 旧駅の検索
     */
     function getStationOldName(oldName, callback) {
@@ -131,7 +126,7 @@ var expGuiStationInfo = function (pObject, config) {
         request(url);
     }
 
-    /*
+    /**
     * 駅の全取得
     */
     function getAllStation(callback) {
@@ -140,7 +135,7 @@ var expGuiStationInfo = function (pObject, config) {
             url += "&type=" + type;
         }
         if (typeof corporationBind != 'undefined') {
-            url += "&corporationBind=" + corporationBind;
+            url += "&corporationBind=" + encodeURIComponent(corporationBind);
         }
         if (typeof prefectureCode != 'undefined') {
             url += "&prefectureCode=" + prefectureCode;
@@ -152,7 +147,7 @@ var expGuiStationInfo = function (pObject, config) {
         request(url);
     }
 
-    /*
+    /**
     * 指定されたURLをコールする関数
     */
     function request(url) {
@@ -193,7 +188,7 @@ var expGuiStationInfo = function (pObject, config) {
         httpObj.send(null);
     }
 
-    /*
+    /**
     * 駅一覧の解析
     */
     function setStationList(json) {
@@ -233,7 +228,7 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 地点オブジェクトの作成
     */
     function setStationObject(stationObj) {
@@ -270,7 +265,7 @@ var expGuiStationInfo = function (pObject, config) {
         return tmp_station;
     }
 
-    /*
+    /**
     * 駅情報の取得
     */
     function getPointObject(station) {
@@ -291,7 +286,7 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 駅リストの取得
     */
     function getStationList() {
@@ -306,7 +301,7 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 駅の付加情報取得
     */
     function getStationInfo(code, callback) {
@@ -355,7 +350,7 @@ var expGuiStationInfo = function (pObject, config) {
         httpObj.send(null);
     }
 
-    /*
+    /**
     * 駅付加情報の解析
     */
     function setInformationList(json) {
@@ -441,7 +436,7 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 駅データオブジェクトの作成
     */
     function setInformationObject(infoObj, corporation) {
@@ -469,7 +464,7 @@ var expGuiStationInfo = function (pObject, config) {
         return tmp_info;
     }
 
-    /*
+    /**
     * 駅付加情報の取得
     */
     function getInformationList(type) {
@@ -494,7 +489,7 @@ var expGuiStationInfo = function (pObject, config) {
         return tmpInformationList.join(",");
     }
 
-    /*
+    /**
     * 駅付加情報オブジェクトの取得
     */
     function getInformationObject(name, type) {
@@ -531,12 +526,14 @@ var expGuiStationInfo = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 環境設定
     */
     function setConfigure(name, value) {
         if (name.toLowerCase() == String("apiURL").toLowerCase()) {
             apiURL = value;
+        } else if (name.toLowerCase() == String("key").toLowerCase()) {
+            key = value;
         } else if (name == "corporationBind") {
             if (typeof value == "object") {
                 corporationBind = value.join(":");
@@ -555,12 +552,16 @@ var expGuiStationInfo = function (pObject, config) {
             } else {
                 prefectureCode = value;
             }
+        } else if (String(name).toLowerCase() == String("ssl").toLowerCase()) {
+            if (String(value).toLowerCase() == "true" || String(value).toLowerCase() == "enable" || String(value).toLowerCase() == "enabled") {
+                apiURL = apiURL.replace('http://', 'https://');
+            } else {
+                apiURL = apiURL.replace('https://', 'http://');
+            }
         }
     }
 
-    /*
-    * 利用できる関数リスト
-    */
+    // 外部参照可能な関数リスト
     this.searchStation = searchStation;
     this.getStation = getStation;
     this.getStationOldName = getStationOldName;
@@ -572,9 +573,7 @@ var expGuiStationInfo = function (pObject, config) {
     this.getInformationObject = getInformationObject;
     this.setConfigure = setConfigure;
 
-    /*
-    * 定数リスト
-    */
+    // 定数リスト
     this.DIRECTION_UP = "up";
     this.DIRECTION_DOWN = "down";
     this.DIRECTION_NONE = "none";

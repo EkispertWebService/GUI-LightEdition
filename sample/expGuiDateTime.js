@@ -2,30 +2,25 @@
  *  駅すぱあと Web サービス
  *  日付入力パーツ
  *  サンプルコード
- *  https://github.com/EkispertWebService/GUI-LightEdition
+ *  https://github.com/EkispertWebService/GUI
  *  
- *  Version:2016-02-22
+ *  Version:2016-06-20
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
 
 var expGuiDateTime = function (pObject, config) {
-    /*
-    * ドキュメントのオブジェクトを格納
-    */
+    // ドキュメントのオブジェクトを格納
     var documentObject = pObject;
     var baseId = pObject.id;
 
-    /*
-    * Webサービスの設定
-    */
-    var apiURL = "http://api.ekispert.com/";
+    // Webサービスの設定
+    var apiURL = "http://api.ekispert.jp/";
 
-    /*
-    * GETパラメータからキーの設定
-    */
+    // GETパラメータからキーの設定
     var key;
     var scripts = document.getElementsByTagName("script");
+    var imagePath;
     for (var i = 0; i < scripts.length; i++) {
         var s = scripts[i];
         imagePath = s.src.substring(0, s.src.indexOf("expGuiDateTime\.js"));
@@ -42,9 +37,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
-    * AGENTのチェック
-    */
+    // AGENTのチェック
     var agent = 1;
     var isiPad = navigator.userAgent.match(/iPad/i) != null;
     var isiPhone = navigator.userAgent.match(/iPhone/i) != null;
@@ -53,7 +46,7 @@ var expGuiDateTime = function (pObject, config) {
     if (isiPhone || isAndroid_phone) { agent = 2; }
     if (isiPad || isAndroid_tablet) { agent = 3; }
 
-    /*
+    /**
     * イベントの設定(IE対応版)
     */
     function addEvent(element, eventName, func) {
@@ -68,15 +61,13 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
-    * 変数郡
-    */
+    // 変数郡
     // カレンダー連携用変数
     var c_year;
     var c_month;
     var c_date;
 
-    /*
+    /**
     * 日時入力の設置
     */
     function dispDateTime(type) {
@@ -118,31 +109,34 @@ var expGuiDateTime = function (pObject, config) {
                 buffer += '<div class="expGuiDateTime expGuiDateTimeTablet">';
             }
             buffer += '<div id="' + baseId + ':searchTypeList" class="exp_searchType exp_clearfix">';
-            buffer += '<span id="' + baseId + ':searchType:dia">';
+            buffer += '<div id="' + baseId + ':searchType:dia">';
             buffer += '<span class="exp_departure"><input type="radio" id="' + baseId + ':searchType:1" name="' + baseId + ':searchType" value="departure" id="' + baseId + ':searchType:1"><label for="' + baseId + ':searchType:1" id="' + baseId + ':searchType:1:text">出発</label></span>';
             buffer += '<span class="exp_arrival"><input type="radio" id="' + baseId + ':searchType:2" name="' + baseId + ':searchType" value="arrival" id="' + baseId + ':searchType:2"><label for="' + baseId + ':searchType:2" id="' + baseId + ':searchType:2:text">到着</label></span>';
             buffer += '<span class="exp_firstTrain"><input type="radio" id="' + baseId + ':searchType:3" name="' + baseId + ':searchType" value="firstTrain" id="' + baseId + ':searchType:3"><label for="' + baseId + ':searchType:3" id="' + baseId + ':searchType:3:text">始発</label></span>';
             buffer += '<span class="exp_lastTrain"><input type="radio" id="' + baseId + ':searchType:4" name="' + baseId + ':searchType" value="lastTrain" id="' + baseId + ':searchType:4"><label for="' + baseId + ':searchType:4" id="' + baseId + ':searchType:4:text">終電</span></span>';
-            buffer += '</span>';
-            buffer += '<span id="' + baseId + ':searchType:average">';
+            buffer += '</div>';
+            buffer += '<div id="' + baseId + ':searchType:average">';
             buffer += '<span class="exp_plain"><input type="radio" id="' + baseId + ':searchType:5" name="' + baseId + ':searchType" value="plain" id="' + baseId + ':searchType:5"><label for="' + baseId + ':searchType:5" id="' + baseId + ':searchType:5:text">平均</label></span>';
-            buffer += '</span>';
+            buffer += '</div>';
             buffer += '</div>';
         }
         buffer += '<div class="exp_dateTime exp_clearfix">';
         buffer += '<div id="' + baseId + ':calendar" style="display:none;"></div>';
+        buffer += '<div class="exp_dateGroup">';
         if (agent == 1) {
             buffer += '<select id="' + baseId + ':date:mm" class="exp_date"></select>';
             buffer += '<select id="' + baseId + ':date:dd" class="exp_date"></select>';
         } else if (agent == 2 || agent == 3) {
             buffer += '<select id="' + baseId + ':date" class="exp_date"></select>';
         }
+        buffer += '</div>';
         buffer += '<a class="exp_cal_open" id="' + baseId + ':cal_open" href="javascript:void(0);"></a>';
         buffer += '<div id="' + baseId + ':time">';
         // 改行
         if (agent == 2) {
             buffer += '<div class="exp_separate"></div>';
         }
+        buffer += '<div class="exp_timeGroup">';
         buffer += '<select class="exp_time" id="' + baseId + ':timeHH">';
         for (var i = 0; i <= 23; i++) {
             buffer += '<option value="' + i + '">' + String(i) + '時</option>';
@@ -153,6 +147,7 @@ var expGuiDateTime = function (pObject, config) {
             buffer += '<option value="' + i + '">' + String(((i <= 9) ? '0' : '') + i) + '分</option>';
         }
         buffer += '</select>';
+        buffer += '</div>';
         buffer += '<a class="exp_setNow" id="' + baseId + ':setNow" href="javascript:void(0);"></a>';
         buffer += '</div>';
         buffer += '</div>';
@@ -186,12 +181,11 @@ var expGuiDateTime = function (pObject, config) {
             addEvent(document.getElementById(baseId + ":date:mm"), "change", function () { changeDate(); });
         }
         addEvent(document.getElementById(baseId + ":setNow"), "click", function () { setNow(); });
-
         // デフォルトの日時設定
         setNow();
     }
 
-    /*
+    /**
     * 現在日時をフォームに設定
     */
     function setNow() {
@@ -202,7 +196,7 @@ var expGuiDateTime = function (pObject, config) {
         document.getElementById(baseId + ':timeMM').selectedIndex = now.getMinutes();
     }
 
-    /*
+    /**
     * 年月を変更する
     */
     function changeDate() {
@@ -212,7 +206,7 @@ var expGuiDateTime = function (pObject, config) {
         setDate(tmp_date.join("/"));
     }
 
-    /*
+    /**
     * 日付設定を取得する
     */
     function getDate() {
@@ -239,7 +233,7 @@ var expGuiDateTime = function (pObject, config) {
         return buffer;
     }
 
-    /*
+    /**
     * 時間設定を取得する
     */
     function getTime() {
@@ -258,7 +252,7 @@ var expGuiDateTime = function (pObject, config) {
         return String(hh) + String(mi);
     }
 
-    /*
+    /**
     * 日付の正当性チェック
     */
     function checkDate() {
@@ -277,7 +271,7 @@ var expGuiDateTime = function (pObject, config) {
         return true;
     }
 
-    /*
+    /**
     * 探索種別を取得
     */
     function getSearchType() {
@@ -293,7 +287,7 @@ var expGuiDateTime = function (pObject, config) {
         return;
     }
 
-    /*
+    /**
     * 探索種別によって時間指定の有無を設定
     */
     function changeSearchType() {
@@ -306,7 +300,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * カレンダーで本日を設定
     */
     function today() {
@@ -316,7 +310,7 @@ var expGuiDateTime = function (pObject, config) {
         document.getElementById(baseId + ':calendar').style.display = "none";
     }
 
-    /*
+    /**
     * カレンダーの月を変更する
     */
     function changeMonth(type) {
@@ -339,7 +333,7 @@ var expGuiDateTime = function (pObject, config) {
         setFunction();
     }
 
-    /*
+    /**
     * カレンダーボタンを押した時の動作
     */
     function changeCalendar() {
@@ -350,7 +344,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * カレンダーを閉じる
     */
     function closeCalendar() {
@@ -358,7 +352,7 @@ var expGuiDateTime = function (pObject, config) {
         document.getElementById(baseId + ':calendar').style.display = "none";
     }
 
-    /*
+    /**
     * カレンダーを表示する
     */
     function openCalendar() {
@@ -395,7 +389,7 @@ var expGuiDateTime = function (pObject, config) {
         setFunction();
     }
 
-    /*
+    /**
     * カレンダーの各イベントを設定
     */
     function setFunction() {
@@ -420,8 +414,8 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
-    * イベントの振り分けを行う
+    /**
+    * イベントの振り分け
     */
     function onEvent(e) {
         var eventIdList = (e.srcElement) ? e.srcElement.id.split(":") : e.target.id.split(":");
@@ -439,7 +433,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * カレンダーで日付を選んだ時の動作
     */
     function selectDate(dd) {
@@ -471,7 +465,7 @@ var expGuiDateTime = function (pObject, config) {
         document.getElementById(baseId + ':calendar').style.display = "none";
     }
 
-    /*
+    /**
     * 月の最終日を判定し、カレンダーに反映する
     */
     function getLastDate(yyyy, mm) {
@@ -488,7 +482,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * カレンダーをテーブルとして取得
     */
     function getCalendarTable(yyyy, mm, dd) {
@@ -581,7 +575,7 @@ var expGuiDateTime = function (pObject, config) {
         }
         doc += '</tr>';
         // 本日ボタン
-        /*
+        /**
         doc+='<tr>';
         doc+='<td colspan="7">';
         doc+='<a class="exp_cal_today" id="'+ baseId +':cal_today" href="javascript:void(0);"></a>';
@@ -592,7 +586,7 @@ var expGuiDateTime = function (pObject, config) {
         return doc;
     }
 
-    /*
+    /**
     * カレンダー内の文字の色を取得
     */
     function getDateColor(yyyy, mm, i, dayOfWeek) {
@@ -607,7 +601,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 祭日の取得
     */
     var moncnt = 0;
@@ -622,7 +616,7 @@ var expGuiDateTime = function (pObject, config) {
 
         // ハッピーマンデーと振替休日
         if (week == 1) {
-            if (!ck) ++moncnt;
+            if (!ck)++moncnt;
             // 振替休日
             // (2006年まで)「国民の祝日」が日曜日にあたるときは、その翌日を休日とする。
             if (furi == 1 && year <= 2006) {
@@ -671,6 +665,7 @@ var expGuiDateTime = function (pObject, config) {
         if (month == 12 && day == 23) { syuku = '天皇誕生日'; }     // 12月23日
         if (year < 2003 && month == 7 && day == 20) { syuku = '海の日'; }   // 7月20日(～2002)
         if (year < 2003 && month == 9 && day == 15) { syuku = '敬老の日'; } //  9月15日(～2002)
+        if (month == 8 && day == 11 && year >= 2016) { syuku = '山の日'; } //  8月11日(2016年から)
 
         // 振替休日
         // (2007年から)「国民の祝日」が日曜日に当たるときは、その日後においてその日に最も近い「国民の祝日」でない日を休日とする。
@@ -704,7 +699,7 @@ var expGuiDateTime = function (pObject, config) {
         return syuku;
     }
 
-    /*
+    /**
     * 探索種別を外部から制御
     */
     function setSearchType(str) {
@@ -746,19 +741,20 @@ var expGuiDateTime = function (pObject, config) {
         changeSearchType();
     }
 
-    /*
+    /**
     * 日付を外部から設定
     */
     function setDate(date) {
+        var tmpDate = String(date);
         var yyyy, mm, dd;
-        if (date.length == 8 && !isNaN(date)) {
-            yyyy = date.substr(0, 4).replace(new RegExp('^0+'), '');
-            mm = date.substr(4, 2).replace(new RegExp('^0+'), '');
-            dd = date.substr(6, 2).replace(new RegExp('^0+'), '');
-        } else if (date.split("/").length == 3) {
-            yyyy = date.split("/")[0].replace(new RegExp('^0+'), '');
-            mm = date.split("/")[1].replace(new RegExp('^0+'), '');
-            dd = date.split("/")[2].replace(new RegExp('^0+'), '');
+        if (tmpDate.length == 8 && !isNaN(tmpDate)) {
+            yyyy = tmpDate.substr(0, 4).replace(new RegExp('^0+'), '');
+            mm = tmpDate.substr(4, 2).replace(new RegExp('^0+'), '');
+            dd = tmpDate.substr(6, 2).replace(new RegExp('^0+'), '');
+        } else if (tmpDate.split("/").length == 3) {
+            yyyy = tmpDate.split("/")[0].replace(new RegExp('^0+'), '');
+            mm = tmpDate.split("/")[1].replace(new RegExp('^0+'), '');
+            dd = tmpDate.split("/")[2].replace(new RegExp('^0+'), '');
             if (isNaN(yyyy) || isNaN(mm) || isNaN(dd)) {
                 // 日付は数値で指定してください。
                 return false;
@@ -778,7 +774,7 @@ var expGuiDateTime = function (pObject, config) {
                 // 日の指定が間違っています。
                 return false;
             }
-            /*
+            /**
             if(mm == 4 || mm == 6 || mm == 9 || mm == 11){
             if(dd<1 || dd>30){
             // 日の指定が間違っています。\n"+mm+"月は1日～30日の間で指定してください。
@@ -820,7 +816,7 @@ var expGuiDateTime = function (pObject, config) {
                 }
             }
             var refrech = false;
-            var check = false; ;
+            var check = false;
             for (var i = 0; i < document.getElementById(baseId + ':date:mm').options.length; i++) {
                 if (document.getElementById(baseId + ':date:mm').options.item(i).value == String(yyyy) + "/" + String(mm)) {
                     check = true;
@@ -861,17 +857,18 @@ var expGuiDateTime = function (pObject, config) {
             // リストを設定
             var calender_limit = 1;
             var week = new Array("日", "月", "火", "水", "木", "金", "土");
+            var tmp_year = yyyy;
             var tmp_month = mm - calender_limit;
-            if (tmp_month < 1) { yyyy--; tmp_month += 12; }
+            if (tmp_month < 1) { tmp_year--; tmp_month += 12; }
             for (var i = 0; i < (calender_limit * 2) + 1; i++) {
-                for (var j = 1; j <= getLastDate(yyyy, tmp_month); j++) {
+                for (var j = 1; j <= getLastDate(tmp_year, tmp_month); j++) {
                     var tmp_option = document.createElement('option');
-                    tmp_option.text = String(tmp_month) + '月' + String(j) + '日(' + week[new Date(yyyy, tmp_month - 1, j).getDay()] + ')';
-                    tmp_option.value = String(yyyy) + '/' + String(tmp_month) + '/' + String(j);
+                    tmp_option.text = String(tmp_month) + '月' + String(j) + '日(' + week[new Date(tmp_year, tmp_month - 1, j).getDay()] + ')';
+                    tmp_option.value = String(tmp_year) + '/' + String(tmp_month) + '/' + String(j);
                     document.getElementById(baseId + ':date').appendChild(tmp_option);
                 }
                 tmp_month++;
-                if (tmp_month > 12) { yyyy++; tmp_month = 1; }
+                if (tmp_month > 12) { tmp_year++; tmp_month = 1; }
             }
             for (var i = 0; i < document.getElementById(baseId + ':date').options.length; i++) {
                 if (document.getElementById(baseId + ':date').options.item(i).value == String(yyyy) + "/" + String(mm) + "/" + String(dd)) {
@@ -882,7 +879,7 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 日付のリストを修正
     */
     function setDateList(yyyy, mm) {
@@ -900,15 +897,19 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 時間を外部から設定
     */
     function setTime(time) {
-        if (time.length == 4 && time.indexOf(":") == -1) {
-            document.getElementById(baseId + ':timeHH').selectedIndex = parseInt(time.substr(0, 2), 10);
-            document.getElementById(baseId + ':timeMM').selectedIndex = parseInt(time.substr(2, 2), 10);
-        } else if (time.indexOf(":") != -1) {
-            var timeList = time.split(":");
+        var tmpTime = String(time);
+        if (tmpTime.length == 3 && tmpTime.indexOf(":") == -1) {
+            document.getElementById(baseId + ':timeHH').selectedIndex = parseInt(tmpTime.substr(0, 1), 10);
+            document.getElementById(baseId + ':timeMM').selectedIndex = parseInt(tmpTime.substr(1, 2), 10);
+        } else if (tmpTime.length == 4 && tmpTime.indexOf(":") == -1) {
+            document.getElementById(baseId + ':timeHH').selectedIndex = parseInt(tmpTime.substr(0, 2), 10);
+            document.getElementById(baseId + ':timeMM').selectedIndex = parseInt(tmpTime.substr(2, 2), 10);
+        } else if (tmpTime.indexOf(":") != -1) {
+            var timeList = tmpTime.split(":");
             if (timeList.length == 2) {
                 document.getElementById(baseId + ':timeHH').selectedIndex = parseInt(timeList[0], 10);
                 document.getElementById(baseId + ':timeMM').selectedIndex = parseInt(timeList[1], 10);
@@ -916,20 +917,26 @@ var expGuiDateTime = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 環境設定
     */
     function setConfigure(name, value) {
         if (name.toLowerCase() == String("apiURL").toLowerCase()) {
             apiURL = value;
+        } else if (name.toLowerCase() == String("key").toLowerCase()) {
+            key = value;
         } else if (name.toLowerCase() == String("agent").toLowerCase()) {
             agent = value;
+        } else if (String(name).toLowerCase() == String("ssl").toLowerCase()) {
+            if (String(value).toLowerCase() == "true" || String(value).toLowerCase() == "enable" || String(value).toLowerCase() == "enabled") {
+                apiURL = apiURL.replace('http://', 'https://');
+            } else {
+                apiURL = apiURL.replace('https://', 'http://');
+            }
         }
     }
 
-    /*
-    * 利用できる関数リスト
-    */
+    // 外部参照可能な関数リスト
     this.dispDateTime = dispDateTime;
     this.checkDate = checkDate;
     this.getDate = getDate;
@@ -942,9 +949,7 @@ var expGuiDateTime = function (pObject, config) {
     this.closeCalendar = closeCalendar;
     this.setConfigure = setConfigure;
 
-    /*
-    * 定数リスト
-    */
+    // 定数リスト
     this.SEARCHTYPE_DEPARTURE = "departure";
     this.SEARCHTYPE_ARRIVAL = "arrival";
     this.SEARCHTYPE_FIRSTTRAIN = "firstTrain";

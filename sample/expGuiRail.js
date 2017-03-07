@@ -2,24 +2,21 @@
  *  駅すぱあと Web サービス
  *  路線情報パーツ
  *  サンプルコード
- *  https://github.com/EkispertWebService/GUI-LightEdition
+ *  https://github.com/EkispertWebService/GUI
  *  
- *  Version:2016-02-22
+ *  Version:2016-06-20
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
 
 var expGuiRail = function (pObject, config) {
-    /*
-    * Webサービスの設定
-    */
-    var apiURL = "http://api.ekispert.com/";
+    // Webサービスの設定
+    var apiURL = "http://api.ekispert.jp/";
 
-    /*
-    * GETパラメータからキーの設定
-    */
+    // GETパラメータからキーの設定
     var key;
     var scripts = document.getElementsByTagName("script");
+    var imagePath;
     for (var i = 0; i < scripts.length; i++) {
         var s = scripts[i];
         imagePath = s.src.substring(0, s.src.indexOf("expGuiRail\.js"));
@@ -36,9 +33,7 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
-    * 変数郡
-    */
+    // 変数郡
     var corporationList = new Array();
     var railList = new Array();
     var stationList = new Array();
@@ -51,7 +46,7 @@ var expGuiRail = function (pObject, config) {
     var prefectureCode;
     var callbackFunction; // コールバック関数の設定
 
-    /*
+    /**
     * 会社の検索
     */
     function searchCorporation(param1, param2) {
@@ -84,7 +79,7 @@ var expGuiRail = function (pObject, config) {
         request(tmpUrl, setCorporationList);
     }
 
-    /*
+    /**
     * 指定されたURLをコールする関数
     */
     function request(url, callBack) {
@@ -121,7 +116,7 @@ var expGuiRail = function (pObject, config) {
         httpObj.send(null);
     }
 
-    /*
+    /**
     * 会社一覧を解析
     */
     function setCorporationList(json) {
@@ -154,7 +149,7 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 会社データのオブジェクトを作成
     */
     function getCorporationObject(corpObj) {
@@ -164,7 +159,7 @@ var expGuiRail = function (pObject, config) {
         return tmp_corporation;
     }
 
-    /*
+    /**
     * 会社一覧の取得
     */
     function getCorporationList() {
@@ -175,7 +170,7 @@ var expGuiRail = function (pObject, config) {
         return tmpCorporationList.join(",");
     }
 
-    /*
+    /**
     * 路線の検索
     */
     function searchRail(param1, param2) {
@@ -205,7 +200,21 @@ var expGuiRail = function (pObject, config) {
         request(tmpUrl, setRailList);
     }
 
-    /*
+    /**
+    * 旧路線名の検索
+    */
+    function getRailOldName(oldName, callback) {
+        var url = apiURL + "v1/json/rail?key=" + key;
+        // 駅名
+        url += "&oldName=" + encodeURIComponent(oldName);
+        callbackFunction = callback;
+        railList = new Array();
+        tmpUrl = url;
+        // 通信
+        request(tmpUrl, setRailList);
+    }
+
+    /**
     * 路線一覧の解析
     */
     function setRailList(json) {
@@ -238,29 +247,31 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 路線オブジェクトの作成
     */
     function getRailObject(railObj) {
         var tmp_rail = new Object();
         tmp_rail.name = railObj.Name;
-        if (typeof railObj.Type.text != 'undefined') {
-            if (typeof railObj.Type.detail != 'undefined') {
-                tmp_rail.type = railObj.Type.text;
+        if (typeof railObj.Type != 'undefined') {
+            if (typeof railObj.Type.text != 'undefined') {
                 if (typeof railObj.Type.detail != 'undefined') {
-                    tmp_rail.type_detail = railObj.Type.text + "." + railObj.Type.detail;
+                    tmp_rail.type = railObj.Type.text;
+                    if (typeof railObj.Type.detail != 'undefined') {
+                        tmp_rail.type_detail = railObj.Type.text + "." + railObj.Type.detail;
+                    }
+                } else {
+                    tmp_rail.type = railObj.Type.text;
                 }
             } else {
-                tmp_rail.type = railObj.Type.text;
+                tmp_rail.type = railObj.Type;
             }
-        } else {
-            tmp_rail.type = railObj.Type;
         }
         tmp_rail.color = railObj.Color;
         return tmp_rail;
     }
 
-    /*
+    /**
     * 路線一覧の取得
     */
     function getRailList() {
@@ -271,7 +282,7 @@ var expGuiRail = function (pObject, config) {
         return tmpRailList.join(",");
     }
 
-    /*
+    /**
     * 駅の検索
     */
     function searchStation(railName, direction, callBack) {
@@ -291,7 +302,7 @@ var expGuiRail = function (pObject, config) {
         request(tmpUrl, setStationList);
     }
 
-    /*
+    /**
     * 駅一覧の解析
     */
     function setStationList(json) {
@@ -324,7 +335,7 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 駅データオブジェクトの作成
     */
     function getStationObject(stationObj) {
@@ -370,7 +381,7 @@ var expGuiRail = function (pObject, config) {
         return tmp_station;
     }
 
-    /*
+    /**
     * 駅情報の取得
     */
     function getPointObject(name) {
@@ -386,7 +397,7 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 駅リストの取得
     */
     function getStationList() {
@@ -397,7 +408,7 @@ var expGuiRail = function (pObject, config) {
         return tmpStationList.join(",");
     }
 
-    /*
+    /**
     * 駅一覧に設定された方向の取得
     */
     function getDirection() {
@@ -408,12 +419,14 @@ var expGuiRail = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 環境設定
     */
     function setConfigure(name, value) {
         if (name.toLowerCase() == String("apiURL").toLowerCase()) {
             apiURL = value;
+        } else if (name.toLowerCase() == String("key").toLowerCase()) {
+            key = value;
         } else if (name == "type") {
             if (typeof value == "object") {
                 type = value.join(":");
@@ -426,25 +439,28 @@ var expGuiRail = function (pObject, config) {
             } else {
                 prefectureCode = value;
             }
+        } else if (String(name).toLowerCase() == String("ssl").toLowerCase()) {
+            if (String(value).toLowerCase() == "true" || String(value).toLowerCase() == "enable" || String(value).toLowerCase() == "enabled") {
+                apiURL = apiURL.replace('http://', 'https://');
+            } else {
+                apiURL = apiURL.replace('https://', 'http://');
+            }
         }
     }
 
-    /*
-    * 利用できる関数リスト
-    */
+    // 外部参照可能な関数リスト
     this.searchCorporation = searchCorporation;
     this.getCorporationList = getCorporationList;
     this.searchRail = searchRail;
     this.getRailList = getRailList;
+    this.getRailOldName = getRailOldName;
     this.searchStation = searchStation;
     this.getStationList = getStationList;
     this.getPointObject = getPointObject;
     this.getDirection = getDirection;
     this.setConfigure = setConfigure;
 
-    /*
-    * 定数リスト
-    */
+    // 定数リスト
     this.DIRECTION_UP = "up";
     this.DIRECTION_DOWN = "down";
     this.DIRECTION_NONE = "none";
