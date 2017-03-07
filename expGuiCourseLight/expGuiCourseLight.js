@@ -2,21 +2,18 @@
  *  駅すぱあと Web サービス
  *  経路探索パーツ
  *  サンプルコード
- *  https://github.com/EkispertWebService/GUI-LightEdition
+ *  https://github.com/EkispertWebService/GUI
  *  
- *  Version:2016-02-22
+ *  Version:2016-06-20
  *  
  *  Copyright (C) Val Laboratory Corporation. All rights reserved.
  **/
 
 var expGuiCourseLight = function (pObject, config) {
-    /*
-    * Webサービスの設定
-    */
-    var apiURL = "http://api.ekispert.com/";
-    /*
-    * GETパラメータからキーの設定
-    */
+    // Webサービスの設定
+    var apiURL = "http://api.ekispert.jp/";
+    
+    // GETパラメータからキーの設定
     var key;
     var scripts = document.getElementsByTagName("script");
     for (var i = 0; i < scripts.length; i++) {
@@ -36,15 +33,13 @@ var expGuiCourseLight = function (pObject, config) {
         }
     }
 
-    /*
-    * 変数郡
-    */
+    // 変数郡
     var searchObj; // 探索条件のオブジェクト
     var resultObj; // 探索結果のリクエストオブジェクト
     var result; // 探索結果オブジェクト
     var callbackFunction; // コールバック関数の設定
 
-    /*
+    /**
     * 探索実行
     */
     function search(searchObject, callback) {
@@ -127,7 +122,7 @@ var expGuiCourseLight = function (pObject, config) {
             searchWord += "&bus=" + searchObj.getBus();
         }
         // 探索文字列の生成
-        var url = apiURL + "v1/json/search/course/light?key=" + key + "&" + searchWord;
+        var url = apiURL + "v1/json/search/course/light?key=" + key + searchWord;
         // コールバック関数の設定
         callbackFunction = callback;
         //探索実行中はキャンセル
@@ -169,7 +164,7 @@ var expGuiCourseLight = function (pObject, config) {
         resultObj.send(null);
     }
 
-    /*
+    /**
     * JSONを解析して結果を出力
     */
     function setWebUrl(requestObject) {
@@ -187,7 +182,7 @@ var expGuiCourseLight = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 環境設定
     */
     function setConfigure(name, value) {
@@ -196,14 +191,14 @@ var expGuiCourseLight = function (pObject, config) {
         }
     }
 
-    /*
+    /**
     * 探索オブジェクトのインターフェースを返す
     */
     function createSearchInterface() {
         return new searchInterface();
     };
 
-    /*
+    /**
     * 探索インターフェースオブジェクト
     */
     function searchInterface() {
@@ -271,7 +266,7 @@ var expGuiCourseLight = function (pObject, config) {
         this.getBus = getBus;
     };
 
-    /*
+    /**
     * 駅すぱあと for webのURLを取得
     */
     function getResourceURI() {
@@ -282,17 +277,13 @@ var expGuiCourseLight = function (pObject, config) {
         }
     }
 
-    /*
-    * 利用できる関数リスト
-    */
+    // 外部参照可能な関数リスト
     this.search = search;
     this.createSearchInterface = createSearchInterface;
     this.setConfigure = setConfigure;
     this.getResourceURI = getResourceURI;
 
-    /*
-    * 定数リスト
-    */
+    // 定数リスト
     this.SEARCHTYPE_DEPARTURE = "departure";
     this.SEARCHTYPE_ARRIVAL = "arrival";
     this.SEARCHTYPE_FIRSTTRAIN = "firstTrain";
