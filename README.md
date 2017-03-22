@@ -1,15 +1,15 @@
-# 駅すぱあとWebサービス - GUIソリューション
+# 駅すぱあとWebサービス HTML5インターフェースサンプル
 
 ## 1.はじめに
 
  * **お申込み**
 
  はじめてご利用いただく場合は[駅すぱあとワールド](https://ekiworld.net/)でのお申込み(無償)とキーの発行が必要になります。
- 
+
  なお、お申し込みは下記のページから行ってください。
- 
- [駅すぱあとWebサービス無償提供API](https://ekiworld.net/service/sier/webservice/free_provision.html)
- 
+
+ [駅すぱあとWebサービス フリープラン](https://ekiworld.net/service/sier/webservice/free_provision.html)
+
  また、後日、認証キーをメールにてお送りいたします。
 
 ## 2.ご利用方法
