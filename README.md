@@ -70,7 +70,7 @@ IE8/IE9の場合は"json2.js"等を利用し、JSONへの拡張を行なって�
 
 **画面**
 
-* [経路探索](file:///Users/hikaru/work/git/EkispertWebService/GUI-LightEdition/sample/sample.html)
+* [経路探索](http://ekispertwebservice.github.io/GUI-LightEdition/sample/sample.html)
 
 **データ取得**
 
