@@ -18,11 +18,11 @@ https://github.com/EkispertWebService/GUI
 
 ### お申込み
 
-はじめてご利用いただく場合は、[駅すぱあとワールド](https://ekiworld.net/)でのお申込み(無料)とキーの発行が必要になります。
+はじめてご利用いただく場合は、お申込み(無料)とキーの発行が必要になります。
 
 お申し込みは下記のページから行ってください。
 
-[駅すぱあと API フリープラン](https://ekiworld.net/service/sier/webservice/free_provision.html)
+[駅すぱあと API フリープラン](https://api-info.ekispert.com/form/free/)
 
 後日、アクセスキーをメールにてお送りいたします。
 
