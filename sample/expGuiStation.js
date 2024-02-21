@@ -14,7 +14,7 @@ var expGuiStation = function (pObject, config) {
     var documentObject = pObject;
     var baseId = pObject.id;
 
-    // Webサービスの設定
+    // 駅すぱあと APIの設定
     var apiURL = "http://api.ekispert.jp/";
 
     // GETパラメータからキーの設定
