@@ -10,7 +10,7 @@
  **/
 
 var expGuiCourseLight = function (pObject, config) {
-    // Webサービスの設定
+    // 駅すぱあと APIの設定
     var apiURL = "http://api.ekispert.jp/";
     
     // GETパラメータからキーの設定
