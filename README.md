@@ -1,10 +1,10 @@
-# 駅すぱあとWebサービス HTML5インターフェースサンプル
+# 駅すぱあと API HTML5インターフェースサンプル
 
 ## 1.はじめに
 
 ### 概要
 
-[駅すぱあとWebサービス](https://ekiworld.net/service/sier/webservice/index.html)を利用したサンプルコードです。  
+[駅すぱあと API](https://ekiworld.net/service/sier/webservice/index.html)を利用したサンプルコードです。  
 
 https://github.com/EkispertWebService/GUI  
 ※サンプルコードはこちらのURLからダウンロードしてください。
@@ -18,11 +18,11 @@ https://github.com/EkispertWebService/GUI
 
 ### お申込み
 
-はじめてご利用いただく場合は、[駅すぱあとワールド](https://ekiworld.net/)でのお申込み(無料)とキーの発行が必要になります。
+はじめてご利用いただく場合は、お申込み(無料)とキーの発行が必要になります。
 
 お申し込みは下記のページから行ってください。
 
-[駅すぱあとWebサービス フリープラン](https://ekiworld.net/service/sier/webservice/free_provision.html)
+[駅すぱあと API フリープラン](https://api-info.ekispert.com/form/free/)
 
 後日、アクセスキーをメールにてお送りいたします。
 
